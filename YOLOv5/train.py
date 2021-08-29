@@ -281,7 +281,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     # P, R, mAP@.5, mAP@.5-.95, val_loss(box, obj, cls)
     results = (0, 0, 0, 0, 0, 0, 0)
     scheduler.last_epoch = start_epoch - 1  # do not move
-    scaler = amp.GradScaler(enabled=cuda)
+    scaler = amp.GradScaler(enabled=cuda) # scale up gradient so it does not vanish during backward
     compute_loss = ComputeLoss(model)  # init loss class
     LOGGER.info(f'Image sizes {imgsz} train, {imgsz} val\n'
                 f'Using {train_loader.num_workers} dataloader workers\n'
